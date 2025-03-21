@@ -125,7 +125,7 @@ export const TablePage: FC = () => {
           onClick={handleLogout}
         >
           <button>
-            <img src="/icons/logout.svg" width={25} />
+            <img src="icons/logout.svg" width={25} />
           </button>
           <Typography color="#2853E1">Выйти</Typography>
         </Box>

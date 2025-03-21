@@ -42,12 +42,12 @@ export const CRUDTable: FC<CRUDTableProps> = ({tableData, onEdit, onDelete}) => 
             <TableCell>{row.employeeSignatureName}</TableCell>
             <TableCell>
               <button onClick={() => onEdit(row)} className='action'>
-                <img src="/icons/edit.svg" />
+                <img src="icons/edit.svg" />
               </button>
             </TableCell>
             <TableCell>
               <button onClick={() => onDelete(row.id)} className='action'>
-                <img src="/icons/delete.svg" />
+                <img src="icons/delete.svg" />
               </button>
             </TableCell>
           </TableRow>
