@@ -33,7 +33,7 @@ import { CRUDTable, TableModal } from "../../components";
 
 export const TablePage: FC = () => {
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -73,7 +73,6 @@ export const TablePage: FC = () => {
   };
 
   const handleSave = async (row: TableItemType) => {
-    setEditing(true);
     try {
       if (editingRow) {
         await updateTableRow(token!, row.id, row);
@@ -85,11 +84,10 @@ export const TablePage: FC = () => {
     } catch (err) {
       setError("Ошибка при сохранении данных!");
     }
-    setEditing(false);
   };
 
   const handleDelete = async (rowId: string) => {
-    setEditing(true);
+    setDeleting(true)
     try {
       const res = await deleteTableRow(token!, rowId);
       console.log(res);
@@ -99,7 +97,8 @@ export const TablePage: FC = () => {
       console.error(e);
       setError(e?.message || "Произошла ошибка при попытке удаления");
     }
-    setEditing(false);
+    
+    setDeleting(false)
     setDeleteDialogOpen(false);
   };
 
@@ -130,23 +129,19 @@ export const TablePage: FC = () => {
           <Typography color="#2853E1">Выйти</Typography>
         </Box>
         <Box className="table-page__container">
-          {data.length ? (
-            <CRUDTable
-              tableData={data}
-              onEdit={(row) => {
-                setEditingRow(row);
-                setModalOpen(true);
-              }}
-              onDelete={(id) => {
-                setSelectedRowId(id);
-                setDeleteDialogOpen(true);
-              }}
-            />
-          ) : (
-            <Box>Таблица еще не создана</Box>
-          )}
+          <CRUDTable
+            tableData={data}
+            onEdit={(row) => {
+              setEditingRow(row);
+              setModalOpen(true);
+            }}
+            onDelete={(id) => {
+              setSelectedRowId(id);
+              setDeleteDialogOpen(true);
+            }}
+          />
         </Box>
-        {editing && <CircularProgress size={30} className='table-page__loading' />}
+        {/* {editing && <CircularProgress size={30} className='table-page__loading' />} */}
         <Button
           variant="contained"
           className="primary-button"
@@ -173,7 +168,7 @@ export const TablePage: FC = () => {
             variant="contained"
             onClick={() => (selectedRowId ? handleDelete(selectedRowId) : "")}
           >
-            Удалить
+            {deleting ? <CircularProgress size={24.5} color="inherit" /> : 'Удалить'}
           </Button>
         </DialogActions>
       </Dialog>

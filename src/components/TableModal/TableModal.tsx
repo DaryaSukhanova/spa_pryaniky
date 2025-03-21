@@ -9,6 +9,7 @@ import {
   Button,
   Alert,
   Fade,
+  CircularProgress,
 } from "@mui/material";
 import { TableItemType } from "../../types";
 import { sanitizeInput } from "../../utils/sanitazedValue";
@@ -42,7 +43,8 @@ export const TableModal: FC<TableModalProps> = ({
     initialData || getDefaultRow()
   )
   const [showAlert, setShowAlert] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     setRow(
@@ -60,7 +62,8 @@ export const TableModal: FC<TableModalProps> = ({
         clearTimeout(removeError);
       };
     }
-  }, [error]);
+  }, [error])
+
   const isValidDate = (dateString: string) => {
     const date = new Date(dateString);
     return !isNaN(date.getTime()); 
@@ -74,7 +77,7 @@ export const TableModal: FC<TableModalProps> = ({
     })
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (Object.values(row).some((value) => !String(value).trim())) {
       setError("Заполните все поля")
       return
@@ -83,7 +86,9 @@ export const TableModal: FC<TableModalProps> = ({
       setError("Некорректная дата");
       return;
     }
-    onSave(row)
+    setIsSaving(true)
+    await onSave(row)
+    setIsSaving(false)
     setRow(getDefaultRow())
     onClose()
   }
@@ -172,7 +177,7 @@ export const TableModal: FC<TableModalProps> = ({
       <DialogActions>
         <Button onClick={onClose}>Отмена</Button>
         <Button variant="contained" onClick={handleSave}>
-          {initialData ? "Сохранить" : "Добавить"}
+          {isSaving ? <CircularProgress size={24.5} color="inherit" /> : (initialData ? "Сохранить" : "Добавить")}
         </Button>
       </DialogActions>
     </Dialog>
