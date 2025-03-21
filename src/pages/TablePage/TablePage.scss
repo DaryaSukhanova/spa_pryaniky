@@ -1,0 +1,11 @@
+.table-page {
+  &__container {
+    overflow-x: scroll;
+    width: 100%;
+  }
+
+  &__loading {
+    margin: 0 auto;
+  }
+
+}
