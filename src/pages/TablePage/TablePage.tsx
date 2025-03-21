@@ -1,18 +1,12 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Table,
-  TableRow,
-  TableCell,
-  TableHead,
-  TableBody,
   CircularProgress,
   Container,
   Box,
   Button,
   Dialog,
   DialogTitle,
-  TextField,
   DialogContent,
   DialogActions,
   Alert,
@@ -33,7 +27,6 @@ import {
   getTableData,
   updateTableRow,
 } from "../../api/requests";
-import { useNavigate } from "react-router-dom";
 import "./TablePage.scss";
 import { TableItemType } from "../../types";
 import { CRUDTable, TableModal } from "../../components";
