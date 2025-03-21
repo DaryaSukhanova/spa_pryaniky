@@ -11,8 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to="/table" /> : <AuthPage />} />
-        <Route path="/table" element={<TablePage />} />
+        <Route path="/" element={isAuthenticated ? <TablePage /> : <AuthPage />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </BrowserRouter>
