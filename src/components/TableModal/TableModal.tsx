@@ -87,6 +87,8 @@ export const TableModal: FC<TableModalProps> = ({
     setRow(getDefaultRow())
     onClose()
   }
+  console.log(row);
+  
 
   return (
     <Dialog open={open} onClose={onClose} className='table-modal'>
@@ -127,6 +129,7 @@ export const TableModal: FC<TableModalProps> = ({
           label="companySignatureName"
           fullWidth
           margin="dense"
+          value={row.companySignatureName}
           onChange={(e) => handleChange("companySignatureName", e.target.value)}
         />
         <TextField
