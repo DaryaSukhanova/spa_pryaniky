@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={isAuthenticated ? <Navigate to="/table" /> : <AuthPage />} />
-        <Route path="/table" element={token ? <TablePage /> : <Navigate to="/" />} />
+        <Route path="/table" element={<TablePage />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </BrowserRouter>
